@@ -16,6 +16,12 @@ namespace ProjectUniversity.Web
             );
 
             routes.MapRoute(
+                name: "Professor",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Professor", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Disciplina",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Disciplina", action = "Index", id = UrlParameter.Optional }
