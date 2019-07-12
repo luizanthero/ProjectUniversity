@@ -16,6 +16,23 @@ namespace ProjectUniversity.Service.Repository
             _context = new ServiceContext();
         }
 
+        public List<Professor> GetProfessores()
+        {
+            return _context.Professores.ToList();
+        }
+
+        public List<Disciplina> GetDisciplinas()
+        {
+            return _context.Disciplinas.ToList();
+        }
+
+        public IQueryable<ProfessorDisciplina> GetQueryable()
+        {
+            return _context.ProfessorDisciplinas.Include(p => p.Disciplina).Include(p => p.Professor);
+        }
+
+        #region IRepository
+
         public void Create(ProfessorDisciplina entity)
         {
             _context.ProfessorDisciplinas.Add(entity);
@@ -44,5 +61,7 @@ namespace ProjectUniversity.Service.Repository
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
+        #endregion
     }
 }

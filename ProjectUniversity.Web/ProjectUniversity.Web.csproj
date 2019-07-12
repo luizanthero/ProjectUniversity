@@ -96,10 +96,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ProjectUniversity_DB.mdf" />
-    <Content Include="App_Data\ProjectUniversity_DB_log.ldf">
-      <DependentUpon>ProjectUniversity_DB.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -166,11 +162,17 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\ProfessorDisciplina\Create.cshtml" />
+    <Content Include="Views\ProfessorDisciplina\Delete.cshtml" />
+    <Content Include="Views\ProfessorDisciplina\Details.cshtml" />
+    <Content Include="Views\ProfessorDisciplina\Edit.cshtml" />
+    <Content Include="Views\ProfessorDisciplina\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DisciplinaController.cs" />
     <Compile Include="Controllers\ProfessorController.cs" />
+    <Compile Include="Controllers\ProfessorDisciplinaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,6 +196,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

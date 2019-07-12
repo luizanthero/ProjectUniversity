@@ -53,6 +53,11 @@
     <Compile Include="Entity\Professor.cs" />
     <Compile Include="Entity\ProfessorDisciplina.cs" />
     <Compile Include="Interface\IRepository.cs" />
+    <Compile Include="Migrations\201907121630416_inicial.cs" />
+    <Compile Include="Migrations\201907121630416_inicial.Designer.cs">
+      <DependentUpon>201907121630416_inicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\DisciplinaRepository.cs" />
     <Compile Include="Repository\ProfessorDisciplinaRepository.cs" />
@@ -62,6 +67,10 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201907121630416_inicial.resx">
+      <DependentUpon>201907121630416_inicial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
