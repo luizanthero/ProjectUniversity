@@ -27,9 +27,14 @@ namespace ProjectUniversity.Service.Repository
             return _context.Professores.ToList();
         }
 
+        public Professor GetById(int? id)
+        {
+            return _context.Professores.Find(id);
+        }
+
         public void Remove(int id)
         {
-            Professor professor = _context.Professores.Find(id);
+            Professor professor = GetById(id);
             _context.Professores.Remove(professor);
             _context.SaveChanges();
         }

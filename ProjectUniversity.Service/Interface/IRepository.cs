@@ -8,6 +8,8 @@ namespace ProjectUniversity.Service.Interface
 
         List<T> GetAll();
 
+        T GetById(int? id);
+
         void Update(T entity);
 
         void Remove(int id);

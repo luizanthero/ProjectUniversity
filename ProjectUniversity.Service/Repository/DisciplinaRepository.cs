@@ -27,9 +27,14 @@ namespace ProjectUniversity.Service.Repository
             return _context.Disciplinas.ToList();
         }
 
+        public Disciplina GetById(int? id)
+        {
+            return _context.Disciplinas.Find(id);
+        }
+
         public void Remove(int id)
         {
-            Disciplina disciplina = _context.Disciplinas.Find(id);
+            Disciplina disciplina = GetById(id);
             _context.Disciplinas.Remove(disciplina);
             _context.SaveChanges();
         }
