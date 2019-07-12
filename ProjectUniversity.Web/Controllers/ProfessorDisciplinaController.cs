@@ -97,11 +97,16 @@ namespace ProjectUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProfessorId,DisciplinaId")] ProfessorDisciplina professorDisciplina)
         {
+            string professorId = Request.QueryString["professorId"];
+            string disciplinaId = Request.QueryString["disciplinaId"];
+
             professorDisciplina.Disciplina = _professorDisciplina.GetDisciplinaById(professorDisciplina.DisciplinaId);
             professorDisciplina.Professor = _professorDisciplina.GetProfessorById(professorDisciplina.ProfessorId);
+
             if (ModelState.IsValid)
             {
-                _professorDisciplina.Update(professorDisciplina);
+                _professorDisciplina.Remove(Convert.ToInt32(professorId), Convert.ToInt32(disciplinaId));
+                _professorDisciplina.Create(professorDisciplina);
                 return RedirectToAction("Index");
             }
             ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "Nome", professorDisciplina.DisciplinaId);
