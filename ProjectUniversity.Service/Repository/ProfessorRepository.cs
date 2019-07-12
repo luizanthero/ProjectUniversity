@@ -16,6 +16,8 @@ namespace ProjectUniversity.Service.Repository
             _context = new ServiceContext();
         }
 
+        #region IRepository
+
         public void Create(Professor entity)
         {
             _context.Professores.Add(entity);
@@ -44,5 +46,8 @@ namespace ProjectUniversity.Service.Repository
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
+        #endregion
+
     }
 }
