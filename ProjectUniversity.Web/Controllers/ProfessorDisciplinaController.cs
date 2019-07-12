@@ -29,13 +29,15 @@ namespace ProjectUniversity.Web.Controllers
         }
 
         // GET: ProfessorDisciplina/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? professorId, int? disciplinaId)
         {
-            if (id == null)
+            if (professorId == null || disciplinaId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProfessorDisciplina professorDisciplina = _professorDisciplina.GetById(id);
+            ProfessorDisciplina professorDisciplina = _professorDisciplina.GetById(professorId, disciplinaId);
+            professorDisciplina.Disciplina = _professorDisciplina.GetDisciplinaById(disciplinaId);
+            professorDisciplina.Professor = _professorDisciplina.GetProfessorById(professorId);
             if (professorDisciplina == null)
             {
                 return HttpNotFound();
@@ -70,13 +72,15 @@ namespace ProjectUniversity.Web.Controllers
         }
 
         // GET: ProfessorDisciplina/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? professorId, int? disciplinaId)
         {
-            if (id == null)
+            if (professorId == null || disciplinaId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProfessorDisciplina professorDisciplina = _professorDisciplina.GetById(id);
+            ProfessorDisciplina professorDisciplina = _professorDisciplina.GetById(professorId, disciplinaId);
+            professorDisciplina.Disciplina = _professorDisciplina.GetDisciplinaById(disciplinaId);
+            professorDisciplina.Professor = _professorDisciplina.GetProfessorById(professorId);
             if (professorDisciplina == null)
             {
                 return HttpNotFound();
@@ -93,6 +97,8 @@ namespace ProjectUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProfessorId,DisciplinaId")] ProfessorDisciplina professorDisciplina)
         {
+            professorDisciplina.Disciplina = _professorDisciplina.GetDisciplinaById(professorDisciplina.DisciplinaId);
+            professorDisciplina.Professor = _professorDisciplina.GetProfessorById(professorDisciplina.ProfessorId);
             if (ModelState.IsValid)
             {
                 _professorDisciplina.Update(professorDisciplina);
@@ -104,13 +110,15 @@ namespace ProjectUniversity.Web.Controllers
         }
 
         // GET: ProfessorDisciplina/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? professorId, int? disciplinaId)
         {
-            if (id == null)
+            if (professorId == null || disciplinaId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProfessorDisciplina professorDisciplina = _professorDisciplina.GetById(id);
+            ProfessorDisciplina professorDisciplina = _professorDisciplina.GetById(professorId, disciplinaId);
+            professorDisciplina.Disciplina = _professorDisciplina.GetDisciplinaById(disciplinaId);
+            professorDisciplina.Professor = _professorDisciplina.GetProfessorById(professorId);
             if (professorDisciplina == null)
             {
                 return HttpNotFound();
@@ -121,9 +129,9 @@ namespace ProjectUniversity.Web.Controllers
         // POST: ProfessorDisciplina/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int professorId, int disciplinaId)
         {
-            _professorDisciplina.Remove(id);
+            _professorDisciplina.Remove(professorId, disciplinaId);
             return RedirectToAction("Index");
         }
     }

@@ -16,9 +16,16 @@ namespace ProjectUniversity.Service.Repository
             _context = new ServiceContext();
         }
 
+        #region Specific Methods
+
         public List<Professor> GetProfessores()
         {
             return _context.Professores.ToList();
+        }
+
+        public Professor GetProfessorById(int? id)
+        {
+            return _context.Professores.Find(id);
         }
 
         public List<Disciplina> GetDisciplinas()
@@ -26,10 +33,17 @@ namespace ProjectUniversity.Service.Repository
             return _context.Disciplinas.ToList();
         }
 
+        public Disciplina GetDisciplinaById(int? id)
+        {
+            return _context.Disciplinas.Find(id);
+        }
+
         public IQueryable<ProfessorDisciplina> GetQueryable()
         {
             return _context.ProfessorDisciplinas.Include(p => p.Disciplina).Include(p => p.Professor);
         }
+
+        #endregion
 
         #region IRepository
 
@@ -46,14 +60,12 @@ namespace ProjectUniversity.Service.Repository
 
         public ProfessorDisciplina GetById(int? id)
         {
-            return _context.ProfessorDisciplinas.Find(id);
+            throw new System.NotImplementedException();
         }
 
         public void Remove(int id)
         {
-            ProfessorDisciplina professorDisciplina = GetById(id);
-            _context.ProfessorDisciplinas.Remove(professorDisciplina);
-            _context.SaveChanges();
+            throw new System.NotImplementedException();
         }
 
         public void Update(ProfessorDisciplina entity)
@@ -63,5 +75,17 @@ namespace ProjectUniversity.Service.Repository
         }
 
         #endregion
+
+        public ProfessorDisciplina GetById(int? professorId, int? disciplinaId)
+        {
+            return _context.ProfessorDisciplinas.Find(professorId, disciplinaId);
+        }
+
+        public void Remove(int professorId, int disciplinaId)
+        {
+            ProfessorDisciplina professorDisciplina = GetById(professorId, disciplinaId);
+            _context.ProfessorDisciplinas.Remove(professorDisciplina);
+            _context.SaveChanges();
+        }
     }
 }
