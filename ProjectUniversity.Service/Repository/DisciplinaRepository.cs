@@ -1,6 +1,7 @@
 ﻿using ProjectUniversity.Service.Context;
 using ProjectUniversity.Service.Entity;
 using ProjectUniversity.Service.Interface;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -20,8 +21,15 @@ namespace ProjectUniversity.Service.Repository
 
         public void Create(Disciplina entity)
         {
-            _context.Disciplinas.Add(entity);
-            _context.SaveChanges();
+            try
+            {
+                _context.Disciplinas.Add(entity);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error when create", ex);
+            }
         }
 
         public List<Disciplina> GetAll()
@@ -36,15 +44,29 @@ namespace ProjectUniversity.Service.Repository
 
         public void Remove(int id)
         {
-            Disciplina disciplina = GetById(id);
-            _context.Disciplinas.Remove(disciplina);
-            _context.SaveChanges();
+            try
+            {
+                Disciplina disciplina = GetById(id);
+                _context.Disciplinas.Remove(disciplina);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error when remove", ex);
+            }
         }
 
         public void Update(Disciplina entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
+            try
+            {
+                _context.Entry(entity).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error when update", ex);
+            }
         }
 
         #endregion

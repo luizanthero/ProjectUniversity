@@ -1,6 +1,7 @@
 ﻿using ProjectUniversity.Service.Context;
 using ProjectUniversity.Service.Entity;
 using ProjectUniversity.Service.Interface;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -57,8 +58,15 @@ namespace ProjectUniversity.Service.Repository
 
         public void Create(ProfessorDisciplina entity)
         {
-            _context.ProfessorDisciplinas.Add(entity);
-            _context.SaveChanges();
+            try
+            {
+                _context.ProfessorDisciplinas.Add(entity);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error when create", ex);
+            }
         }
 
         public List<ProfessorDisciplina> GetAll()
@@ -78,8 +86,15 @@ namespace ProjectUniversity.Service.Repository
 
         public void Update(ProfessorDisciplina entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
+            try
+            {
+                _context.Entry(entity).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error when update", ex);
+            }
         }
 
         #endregion
@@ -91,9 +106,16 @@ namespace ProjectUniversity.Service.Repository
 
         public void Remove(int professorId, int disciplinaId)
         {
-            ProfessorDisciplina professorDisciplina = GetById(professorId, disciplinaId);
-            _context.ProfessorDisciplinas.Remove(professorDisciplina);
-            _context.SaveChanges();
+            try
+            {
+                ProfessorDisciplina professorDisciplina = GetById(professorId, disciplinaId);
+                _context.ProfessorDisciplinas.Remove(professorDisciplina);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error when remove", ex);
+            }
         }
     }
 }

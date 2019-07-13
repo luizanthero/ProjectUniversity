@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web.Mvc;
 using ProjectUniversity.Service.Entity;
 using ProjectUniversity.Service.Repository;
@@ -48,13 +49,21 @@ namespace ProjectUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,Periodo")] Disciplina disciplina)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _disciplinaRepository.Create(disciplina);
-                TempData["Success"] = "Registro criado com sucesso.";
-            }
+                if (ModelState.IsValid)
+                {
+                    _disciplinaRepository.Create(disciplina);
+                    TempData["Success"] = "Registro criado com sucesso.";
+                }
 
-            return View(disciplina);
+                return View();
+            }
+            catch (InvalidOperationException IEx)
+            {
+                TempData["Error"] = IEx.Message;
+                return View();
+            }
         }
 
         // GET: Disciplina/Edit/5
@@ -79,12 +88,21 @@ namespace ProjectUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nome,Periodo")] Disciplina disciplina)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _disciplinaRepository.Update(disciplina);
-                TempData["Success"] = "Registro atualizado com sucesso.";
+                if (ModelState.IsValid)
+                {
+                    _disciplinaRepository.Update(disciplina);
+                    TempData["Success"] = "Registro atualizado com sucesso.";
+                }
+
+                return View(disciplina);
             }
-            return View(disciplina);
+            catch (InvalidOperationException IEx)
+            {
+                TempData["Error"] = IEx.Message;
+                return View();
+            }
         }
 
         // GET: Disciplina/Delete/5
@@ -107,8 +125,16 @@ namespace ProjectUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _disciplinaRepository.Remove(id);
-            return RedirectToAction("Index");
+            try
+            {
+                _disciplinaRepository.Remove(id);
+                return RedirectToAction("Index");
+            }
+            catch (InvalidOperationException IEx)
+            {
+                TempData["Error"] = IEx.Message;
+                return View();
+            }
         }
     }
 }

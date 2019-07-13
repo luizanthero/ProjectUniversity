@@ -55,15 +55,25 @@ namespace ProjectUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProfessorId,DisciplinaId")] ProfessorDisciplina professorDisciplina)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _professorDisciplina.Create(professorDisciplina);
-                TempData["Success"] = "Registro criado com sucesso.";
-            }
+                if (ModelState.IsValid)
+                {
+                    _professorDisciplina.Create(professorDisciplina);
+                    TempData["Success"] = "Registro criado com sucesso.";
+                    ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName");
+                    ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "FullName");
+                }
 
-            ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName", professorDisciplina.DisciplinaId);
-            ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "FullName", professorDisciplina.ProfessorId);
-            return View(professorDisciplina);
+                return View(professorDisciplina);
+            }
+            catch (InvalidOperationException IEx)
+            {
+                TempData["Error"] = IEx.Message;
+                ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName");
+                ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "FullName");
+                return View();
+            }
         }
 
         // GET: ProfessorDisciplina/Edit/5
@@ -92,21 +102,33 @@ namespace ProjectUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProfessorId,DisciplinaId")] ProfessorDisciplina professorDisciplina)
         {
-            string professorId = Request.QueryString["professorId"];
-            string disciplinaId = Request.QueryString["disciplinaId"];
-
-            professorDisciplina.Disciplina = _professorDisciplina.GetDisciplinaById(professorDisciplina.DisciplinaId);
-            professorDisciplina.Professor = _professorDisciplina.GetProfessorById(professorDisciplina.ProfessorId);
-
-            if (ModelState.IsValid)
+            try
             {
-                _professorDisciplina.Remove(Convert.ToInt32(professorId), Convert.ToInt32(disciplinaId));
-                _professorDisciplina.Create(professorDisciplina);
-                TempData["Success"] = "Registro atualizado com sucesso.";
+                string professorId = Request.QueryString["professorId"];
+                string disciplinaId = Request.QueryString["disciplinaId"];
+
+                professorDisciplina.Disciplina = _professorDisciplina.GetDisciplinaById(professorDisciplina.DisciplinaId);
+                professorDisciplina.Professor = _professorDisciplina.GetProfessorById(professorDisciplina.ProfessorId);
+
+                if (ModelState.IsValid)
+                {
+                    _professorDisciplina.Remove(Convert.ToInt32(professorId), Convert.ToInt32(disciplinaId));
+                    _professorDisciplina.Create(professorDisciplina);
+                    TempData["Success"] = "Registro atualizado com sucesso.";
+
+                    ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName", professorDisciplina.DisciplinaId);
+                    ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "FullName", professorDisciplina.ProfessorId);
+                }
+                
+                return View(professorDisciplina);
             }
-            ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName", professorDisciplina.DisciplinaId);
-            ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "FullName", professorDisciplina.ProfessorId);
-            return View(professorDisciplina);
+            catch (InvalidOperationException IEx)
+            {
+                TempData["Error"] = IEx.Message;
+                ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName");
+                ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "FullName");
+                return View();
+            }
         }
 
         // GET: ProfessorDisciplina/Delete/5
@@ -131,8 +153,16 @@ namespace ProjectUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int professorId, int disciplinaId)
         {
-            _professorDisciplina.Remove(professorId, disciplinaId);
-            return RedirectToAction("Index");
+            try
+            {
+                _professorDisciplina.Remove(professorId, disciplinaId);
+                return RedirectToAction("Index");
+            }
+            catch (InvalidOperationException IEx)
+            {
+                TempData["Error"] = IEx.Message;
+                return View();
+            }
         }
     }
 }

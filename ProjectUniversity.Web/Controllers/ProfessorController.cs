@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web.Mvc;
 using ProjectUniversity.Service.Entity;
 using ProjectUniversity.Service.Repository;
@@ -48,13 +49,21 @@ namespace ProjectUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,Sobrenome")] Professor professor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _professorRepository.Create(professor);
-                TempData["Success"] = "Registro criado com sucesso.";
-            }
+                if (ModelState.IsValid)
+                {
+                    _professorRepository.Create(professor);
+                    TempData["Success"] = "Registro criado com sucesso.";
+                }
 
-            return View(professor);
+                return View();
+            }
+            catch (InvalidOperationException IEx)
+            {
+                TempData["Error"] = IEx.Message;
+                return View();
+            }
         }
 
         // GET: Professor/Edit/5
@@ -79,12 +88,21 @@ namespace ProjectUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nome,Sobrenome")] Professor professor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _professorRepository.Update(professor);
-                TempData["Success"] = "Registro atualizado com sucesso.";
+                if (ModelState.IsValid)
+                {
+                    _professorRepository.Update(professor);
+                    TempData["Success"] = "Registro atualizado com sucesso.";
+                }
+
+                return View(professor);
             }
-            return View(professor);
+            catch (InvalidOperationException IEx)
+            {
+                TempData["Error"] = IEx.Message;
+                return View();
+            }
         }
 
         // GET: Professor/Delete/5
@@ -107,8 +125,16 @@ namespace ProjectUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _professorRepository.Remove(id);
-            return RedirectToAction("Index");
+            try
+            {
+                _professorRepository.Remove(id);
+                return RedirectToAction("Index");
+            }
+            catch (InvalidOperationException IEx)
+            {
+                TempData["Error"] = IEx.Message;
+                return View();
+            }
         }
     }
 }
