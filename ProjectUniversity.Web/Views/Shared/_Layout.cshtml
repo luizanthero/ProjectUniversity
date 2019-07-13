@@ -15,10 +15,10 @@
         @Html.ActionLink("Project University", "Index", "ProfessorDisciplina", new { area = "" }, new { @class = "navbar-brand" })
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
+                <li id="professor" class="nav-item">
                     @Html.ActionLink("Professores", "Index", "Professor", new { area = "" }, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
+                <li id="disciplina" class="nav-item">
                     @Html.ActionLink("Disciplinas", "Index", "Disciplina", new { area = "" }, new { @class = "nav-link" })
                 </li>
             </ul>
@@ -36,7 +36,19 @@
         </div>
     </footer>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script>
+        var pathname = window.location.pathname;
+
+        if (pathname === '/Professor') {
+            $('#professor').addClass('active');
+        }
+
+        if (pathname === '/Disciplina') {
+            $('#disciplina').addClass('active');
+        }
+    </script>
 </body>
 </html>
