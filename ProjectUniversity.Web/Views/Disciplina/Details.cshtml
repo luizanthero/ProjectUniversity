@@ -1,13 +1,12 @@
 ﻿@model ProjectUniversity.Service.Entity.Disciplina
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes Disciplina";
 }
 
-<h2>Details</h2>
+<h2>Detalhes Disciplina</h2>
 
 <div>
-    <h4>Disciplina</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -28,7 +27,14 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary">
+        @Html.ActionLink(" Voltar", "Index", new { area = "" },
+            new { title = "Voltar", @class = "fa fa-arrow-left text-decoration-none text-white" })
+    </label>
+    <label class="btn btn-info">
+        @Html.ActionLink(" Editar", "Edit", new { id = Model.Id },
+            new { title = "Voltar", @class = "fa fa-edit text-decoration-none text-white" })
+    </label>
+</div>
