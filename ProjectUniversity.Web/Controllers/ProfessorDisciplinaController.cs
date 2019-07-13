@@ -43,8 +43,8 @@ namespace ProjectUniversity.Web.Controllers
         // GET: ProfessorDisciplina/Create
         public ActionResult Create()
         {
-            ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "Nome");
-            ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "Nome");
+            ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName");
+            ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "FullName");
             return View();
         }
 
@@ -61,8 +61,8 @@ namespace ProjectUniversity.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "Nome", professorDisciplina.DisciplinaId);
-            ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "Nome", professorDisciplina.ProfessorId);
+            ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName", professorDisciplina.DisciplinaId);
+            ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "FullName", professorDisciplina.ProfessorId);
             return View(professorDisciplina);
         }
 
@@ -80,8 +80,8 @@ namespace ProjectUniversity.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "Nome", professorDisciplina.DisciplinaId);
-            ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "Nome", professorDisciplina.ProfessorId);
+            ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName", professorDisciplina.DisciplinaId);
+            ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "FullName", professorDisciplina.ProfessorId);
             return View(professorDisciplina);
         }
 
@@ -104,8 +104,8 @@ namespace ProjectUniversity.Web.Controllers
                 _professorDisciplina.Create(professorDisciplina);
                 return RedirectToAction("Index");
             }
-            ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "Nome", professorDisciplina.DisciplinaId);
-            ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "Nome", professorDisciplina.ProfessorId);
+            ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName", professorDisciplina.DisciplinaId);
+            ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "FullName", professorDisciplina.ProfessorId);
             return View(professorDisciplina);
         }
 

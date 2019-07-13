@@ -1,39 +1,54 @@
 ﻿@model IEnumerable<ProjectUniversity.Service.Entity.Professor>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Professores";
 }
 
-<h2>Index</h2>
+<div class="d-flex p-2">
+    <div class="p-2 text-center">
+        <h2>Professores</h2>
+    </div>
+    <div class="p-2">
+        <p class="btn btn-primary">
+            @Html.ActionLink(" ", "Create", new { area = "" },
+                new { title="Adicionar", @class = "fa fa-plus text-decoration-none text-white" })
+        </p>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sobrenome)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-borderless">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sobrenome)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sobrenome)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sobrenome)
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id },
+                        new { title = "Editar", @class = "btn btn-primary fa fa-edit text-decoration-none text-white" })
+                    @Html.ActionLink(" ", "Details", new { id = item.Id },
+                        new { title = "Detalhes", @class = "btn btn-secondary fa fa-eye text-decoration-none text-white" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id },
+                        new { title = "Deletar", @class = "btn btn-danger fa fa-trash text-decoration-none text-white" })
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>

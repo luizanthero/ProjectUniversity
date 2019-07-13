@@ -4,37 +4,51 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="d-flex p-2">
+    <div class="p-2 text-center">
+        <h2>Grade de Disciplinas e Professores</h2>
+    </div>
+    <div class="p-2">
+        <p class="btn btn-primary">
+            @Html.ActionLink(" ", "Create", new { area = "" }, 
+                new { title="Adicionar", @class = "fa fa-plus text-decoration-none text-white" })
+        </p>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProfessorId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DisciplinaId)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table table-borderless">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Professor.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Disciplina.Nome)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { professorId = item.ProfessorId, disciplinaId = item.DisciplinaId }) |
-                @Html.ActionLink("Details", "Details", new { professorId = item.ProfessorId, disciplinaId = item.DisciplinaId }) |
-                @Html.ActionLink("Delete", "Delete", new { professorId = item.ProfessorId, disciplinaId = item.DisciplinaId })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfessorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisciplinaId)
+            </th>
+            <th></th>
         </tr>
-    }
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Professor.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disciplina.Nome) - @Html.DisplayFor(modelItem => item.Disciplina.Periodo)
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "Edit", new { professorId = item.ProfessorId, disciplinaId = item.DisciplinaId },
+                        new { title="Editar", @class= "btn btn-primary fa fa-edit text-decoration-none text-white" })
+                    @Html.ActionLink(" ", "Details", new { professorId = item.ProfessorId, disciplinaId = item.DisciplinaId },
+                        new { title = "Detalhes", @class = "btn btn-secondary fa fa-eye text-decoration-none text-white" })
+                    @Html.ActionLink(" ", "Delete", new { professorId = item.ProfessorId, disciplinaId = item.DisciplinaId },
+                        new { title = "Deletar", @class = "btn btn-danger fa fa-trash text-decoration-none text-white" })
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>

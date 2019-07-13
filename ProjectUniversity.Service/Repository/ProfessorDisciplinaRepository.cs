@@ -20,6 +20,10 @@ namespace ProjectUniversity.Service.Repository
 
         public List<Professor> GetProfessores()
         {
+            _context.Professores.ToList().ForEach(item =>
+            {
+                item.FullName = $"{item.Nome} {item.Sobrenome}";
+            });
             return _context.Professores.ToList();
         }
 
@@ -30,6 +34,10 @@ namespace ProjectUniversity.Service.Repository
 
         public List<Disciplina> GetDisciplinas()
         {
+            _context.Disciplinas.ToList().ForEach(item =>
+            {
+                item.FullName = $"{item.Nome} - {item.Periodo}";
+            });
             return _context.Disciplinas.ToList();
         }
 
