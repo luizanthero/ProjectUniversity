@@ -6,6 +6,11 @@
 
 <h2>Criar Disciplina</h2>
 
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success">@TempData["Success"]</p>
+}
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

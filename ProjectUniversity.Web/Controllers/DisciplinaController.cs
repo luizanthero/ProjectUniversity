@@ -51,7 +51,7 @@ namespace ProjectUniversity.Web.Controllers
             if (ModelState.IsValid)
             {
                 _disciplinaRepository.Create(disciplina);
-                return RedirectToAction("Index");
+                TempData["Success"] = "Registro criado com sucesso.";
             }
 
             return View(disciplina);
@@ -82,7 +82,7 @@ namespace ProjectUniversity.Web.Controllers
             if (ModelState.IsValid)
             {
                 _disciplinaRepository.Update(disciplina);
-                return RedirectToAction("Index");
+                TempData["Success"] = "Registro atualizado com sucesso.";
             }
             return View(disciplina);
         }

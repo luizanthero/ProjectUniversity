@@ -58,7 +58,7 @@ namespace ProjectUniversity.Web.Controllers
             if (ModelState.IsValid)
             {
                 _professorDisciplina.Create(professorDisciplina);
-                return RedirectToAction("Index");
+                TempData["Success"] = "Registro criado com sucesso.";
             }
 
             ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName", professorDisciplina.DisciplinaId);
@@ -102,7 +102,7 @@ namespace ProjectUniversity.Web.Controllers
             {
                 _professorDisciplina.Remove(Convert.ToInt32(professorId), Convert.ToInt32(disciplinaId));
                 _professorDisciplina.Create(professorDisciplina);
-                return RedirectToAction("Index");
+                TempData["Success"] = "Registro atualizado com sucesso.";
             }
             ViewBag.DisciplinaId = new SelectList(_professorDisciplina.GetDisciplinas(), "Id", "FullName", professorDisciplina.DisciplinaId);
             ViewBag.ProfessorId = new SelectList(_professorDisciplina.GetProfessores(), "Id", "FullName", professorDisciplina.ProfessorId);
