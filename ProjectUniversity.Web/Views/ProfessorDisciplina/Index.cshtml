@@ -10,11 +10,21 @@
     </div>
     <div class="p-2">
         <p class="btn btn-primary">
-            @Html.ActionLink(" ", "Create", new { area = "" }, 
+            @Html.ActionLink(" ", "Create", new { area = "" },
                 new { title="Adicionar", @class = "fa fa-plus text-decoration-none text-white" })
         </p>
     </div>
 </div>
+
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success">@TempData["Success"]</p>
+}
+
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-danger">@TempData["Error"]</p>
+}
 
 <table class="table table-borderless">
     <thead>

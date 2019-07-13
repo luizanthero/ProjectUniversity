@@ -16,6 +16,16 @@
     </div>
 </div>
 
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success">@TempData["Success"]</p>
+}
+
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-danger">@TempData["Error"]</p>
+}
+
 <table class="table table-borderless">
     <thead>
         <tr>

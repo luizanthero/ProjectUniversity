@@ -11,6 +11,16 @@
     <p class="alert alert-success">@TempData["Success"]</p>
 }
 
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-danger">@TempData["Error"]</p>
+}
+
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success">@TempData["Success"]</p>
+}
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

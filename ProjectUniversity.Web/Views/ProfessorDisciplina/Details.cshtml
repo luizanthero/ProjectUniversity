@@ -6,17 +6,19 @@
 
 <h2>Detalhes Grade</h2>
 
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success">@TempData["Success"]</p>
+}
+
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-danger">@TempData["Error"]</p>
+}
+
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DisciplinaId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Disciplina.Nome)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.ProfessorId)
         </dt>
@@ -25,6 +27,13 @@
             @Html.DisplayFor(model => model.Professor.Nome)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.DisciplinaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disciplina.Nome) - @Html.DisplayFor(model => model.Disciplina.Periodo)
+        </dd>
     </dl>
 </div>
 

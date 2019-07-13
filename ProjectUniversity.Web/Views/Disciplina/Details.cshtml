@@ -6,6 +6,16 @@
 
 <h2>Detalhes Disciplina</h2>
 
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success">@TempData["Success"]</p>
+}
+
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-danger">@TempData["Error"]</p>
+}
+
 <div>
     <hr />
     <dl class="dl-horizontal">

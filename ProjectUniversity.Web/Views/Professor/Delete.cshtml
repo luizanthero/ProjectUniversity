@@ -4,7 +4,18 @@
     ViewBag.Title = "Excluir Professor";
 }
 
-<h3>Tem certeza que deseja excluir este Professor?</h3>
+<h3>Tem certeza que deseja excluir este Professor(a)?</h3>
+
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success">@TempData["Success"]</p>
+}
+
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-danger">@TempData["Error"]</p>
+}
+
 <div>
     <hr />
     <dl class="dl-horizontal">

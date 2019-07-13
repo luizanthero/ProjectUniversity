@@ -6,6 +6,11 @@
 
 <h2>Editar Grade</h2>
 
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-danger">@TempData["Error"]</p>
+}
+
 @if (TempData["Success"] != null)
 {
     <p class="alert alert-success">@TempData["Success"]</p>
